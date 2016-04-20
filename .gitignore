@@ -1,4 +1,5 @@
 demos/
 static/
 venv/
+imsearchtools/engines/api_credentials.py
 *.pyc
