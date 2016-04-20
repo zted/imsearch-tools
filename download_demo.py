@@ -12,14 +12,14 @@ def test_callback(out_dict):
     #time.sleep(0.2)
 
 if len(sys.argv) < 2:
-    test_query_str = 'car'
+    test_query_str = 'hairy moths'
 else: test_query_str = sys.argv[1]
 
-searcher = ist.query.GoogleWebSearch()
+searcher = ist.query.BingAPISearch()
 print 'Executing Google Web Search...'
 t = time.time()
 # example of querying for image URLs using Google Web engine
-results = searcher.query(test_query_str)
+results = searcher.query(test_query_str, num_results=10)
 print 'Retrieved %d result URLs in %f seconds' % (len(results), (time.time() - t))
 
 imgetter = ist.process.ImageGetter()
