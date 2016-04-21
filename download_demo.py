@@ -19,7 +19,7 @@ searcher = ist.query.BingAPISearch()
 print 'Executing Google Web Search...'
 t = time.time()
 # example of querying for image URLs using Google Web engine
-results = searcher.query(test_query_str, num_results=10)
+# results = searcher.query(test_query_str, num_results=10)
 print 'Retrieved %d result URLs in %f seconds' % (len(results), (time.time() - t))
 
 imgetter = ist.process.ImageGetter()

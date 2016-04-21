@@ -15,14 +15,14 @@ if not os.path.isdir(outdir):
     os.makedirs(outdir)
 
 test_bing_api = True
-test_google_old_api = True
-test_google_api = True
-test_google_web = True
-test_flickr_api = True
+test_google_old_api = False
+test_google_api = False
+test_google_web = False
+test_flickr_api = False
 
 num_results = 100
 
-display_results = True
+display_results = False
 
 all_results = []
 all_generator_names = []
@@ -31,8 +31,8 @@ if test_bing_api:
     bing_api_searcher = image_query.BingAPISearch()
     print 'Executing Bing API Search...'
     t = time.time()
-    bing_api_results = bing_api_searcher.query(test_query_str,
-                                               num_results=num_results)
+    # bing_api_results = bing_api_searcher.query(test_query_str,
+    #                                            num_results=num_results)
     bing_api_timing = time.time() - t
     print 'Retrieved %d results in %f seconds' % (len(bing_api_results), bing_api_timing)
 
