@@ -76,16 +76,6 @@ class ImageProcessor(object):
             clean_fn = os.path.join(self.opts.conversion['subdir'], clean_fn)
         return clean_fn
 
-    def _thumb_filename_from_filename(self, fn):
-        name = os.path.splitext(fn)[0]
-        suffix = self.opts.thumbnail['suffix']
-        width, height = self.opts.thumbnail['width'], self.opts.thumbnail['height']
-        extension = self.opts.thumbnail['format'].lower()
-        thumb_fn = '%s%s-%dx%d.%s' % (name, suffix, width, height, extension)
-        if self.opts.thumbnail['subdir']:
-            thumb_fn = os.path.join(self.opts.thumbnail['subdir'], thumb_fn)
-        return thumb_fn
-
     # Process image and standardize it
     def process_image(self, fn):
         """Process a single image, saving a cleaned up version of the image + thumbnail
@@ -113,17 +103,7 @@ class ImageProcessor(object):
         else:
             log.info('Converted image available: %s', clean_fn)
 
-        # write thumbnail
-        thumb_fn = self._thumb_filename_from_filename(fn)
-        if not imutils.image_exists(thumb_fn):
-            thumbnail = imutils.create_thumbnail(im.image,
-                                                 (self.opts.thumbnail['height'],
-                                                  self.opts.thumbnail['width']))
-            imutils.save_image(thumb_fn, thumbnail)
-        else:
-            log.info('Thumbnail image available: %s', thumb_fn)
-
-        return clean_fn, thumb_fn
+        return clean_fn
 
     def _filter_image(self, fn):
         # This is faster than reading the full image into memory: the PIL open

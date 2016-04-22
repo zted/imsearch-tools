@@ -53,7 +53,9 @@ class ImageGetter(ImageProcessor):
         try:
             output_fn = os.path.join(output_dir, self._filename_from_urldata(urldata))
             self._download_image(urldata['url'], output_fn)
-            clean_fn, thumb_fn = self.process_image(output_fn)
+            clean_fn = self.process_image(output_fn)
+            os.remove(output_fn)
+            # we remove the original image after to save space
         except urllib2.URLError, e:
             log.info('URL Error for %s (%s)', urldata['url'], str(e))
             error_occurred = True
@@ -73,9 +75,7 @@ class ImageGetter(ImageProcessor):
 
         if not error_occurred:
             out_dict = urldata
-            out_dict['orig_fn'] = output_fn
             out_dict['clean_fn'] = clean_fn
-            out_dict['thumb_fn'] = thumb_fn
             if start_time > 0:
                 out_dict['download_time'] = time.time() - start_time
 
