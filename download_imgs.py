@@ -51,12 +51,15 @@ if __name__ == "__main__":
     if not(os.path.isdir(working_directory)):
         raise EnvironmentError("Directory entered is not a valid path")
     words_file = sys.argv[2]
-    num_results = 500
+    num_results = 1000
     word_list = []
     with open(words_file, 'r') as f:
         for line in f:
             word = line.rstrip('\n')
             print(word)
             word_list.append(word)
-    print(len(word_list))
+    print('Total number of words processed: {}'.format(len(word_list)))
+    print('Last word processed: {}'.format(word))
     download_images(word_list, working_directory, num_results)
+    print('Total number of words processed: {}'.format(len(word_list)))
+    print('Last word processed: {}'.format(word))
