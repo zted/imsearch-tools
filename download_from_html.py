@@ -1,9 +1,9 @@
-from bs4 import BeautifulSoup
-import urllib
-import time
-import sys
 import os
 import socket
+import sys
+import time
+import urllib
+from bs4 import BeautifulSoup
 
 
 def download_images(top_directory):
@@ -23,7 +23,7 @@ def download_images(top_directory):
             filepath = '{}/{}.jpg'.format(download_folder, n)
             try:
                 urllib.urlretrieve(address, filepath)
-            except IOError:
+            except {IOError, UnicodeError}:
                 continue
             time.sleep(0.2)
         print('Time taken to download all images in this folder: {}'.format(time.time() - t))

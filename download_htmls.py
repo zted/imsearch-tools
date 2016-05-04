@@ -1,15 +1,18 @@
-import imsearchtools as ist
-import time
 import os
-from imsearchtools.utils import result_page_gen
 import sys
+import time
+import warnings
+
+import imsearchtools as ist
+from imsearchtools.utils import result_page_gen
+
+warnings.filterwarnings("ignore")
 
 
 def download_images(wordlist, dir_root, numresults):
     searcher = ist.query.BingAPISearch()
     for n, query_string in enumerate(wordlist):
         t = time.time()
-        print 'Executing Bing Image Search...'
         # example of querying for image URLs using Google Web engine
         # TODO: exception handler for queries not found, implement handler,
         # perhaps because internet disconnected that results cannot be retrieved.
@@ -24,8 +27,8 @@ def download_images(wordlist, dir_root, numresults):
         html_fn = '{0}/{1}.html'.format(outdir, query_string)
         result_page_gen.gen_results_page(results_copy, 'BingAPISearch()',
                                          html_fn, show_in_browser=False)
-        print 'Finished retrieving for query {}'.format(query_string)
-        time.sleep(2.0)
+        print 'Finished retrieving for query "{}"'.format(query_string)
+        time.sleep(5.0)
 
 
 if __name__ == "__main__":
