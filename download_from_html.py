@@ -3,6 +3,7 @@ import urllib
 import time
 import sys
 import os
+import socket
 
 
 def download_images(top_directory):
@@ -21,6 +22,8 @@ def download_images(top_directory):
             address = img_link.img['src']
             filepath = '{}/{}.jpg'.format(download_folder, n)
             try:
+                print(address)
+                print(filepath)
                 urllib.urlretrieve(address, filepath)
             except IOError:
                 continue
@@ -29,7 +32,7 @@ def download_images(top_directory):
 
 
 if __name__ == "__main__":
-
+    socket.setdefaulttimeout(5)
     PROCESSING_DIRECTORY = sys.argv[1]
     if not(os.path.isdir(PROCESSING_DIRECTORY)):
         raise EnvironmentError("Directory entered is not a valid path")
