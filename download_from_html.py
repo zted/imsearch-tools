@@ -22,8 +22,6 @@ def download_images(top_directory):
             address = img_link.img['src']
             filepath = '{}/{}.jpg'.format(download_folder, n)
             try:
-                print(address)
-                print(filepath)
                 urllib.urlretrieve(address, filepath)
             except IOError:
                 continue
