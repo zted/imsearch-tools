@@ -10,14 +10,21 @@ warnings.filterwarnings("ignore")
 
 
 def download_images(wordlist, dir_root, numresults):
+
+    from imsearchtools.engines.search_client import QueryException
+
     searcher = ist.query.BingAPISearch()
     for n, query_string in enumerate(wordlist):
         t = time.time()
-        # example of querying for image URLs using Google Web engine
         # TODO: exception handler for queries not found, implement handler,
         # perhaps because internet disconnected that results cannot be retrieved.
         # put a counter here or something
-        results = searcher.query(query_string, num_results=numresults)
+        print 'Querying for string "{}"'.format(query_string)
+        try:
+            results = searcher.query(query_string, num_results=numresults)
+        except QueryException:
+            print('Could not find word, moving on to next')
+            continue
         results_copy = results[:]
 
         print 'Retrieved %d result URLs in %f seconds' % (len(results), (time.time() - t))
@@ -27,7 +34,6 @@ def download_images(wordlist, dir_root, numresults):
         html_fn = '{0}/{1}.html'.format(outdir, query_string)
         result_page_gen.gen_results_page(results_copy, 'BingAPISearch()',
                                          html_fn, show_in_browser=False)
-        print 'Finished retrieving for query "{}"'.format(query_string)
         time.sleep(5.0)
 
 
