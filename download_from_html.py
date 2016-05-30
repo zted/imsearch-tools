@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 
 def download_images(top_directory):
     all_words = os.listdir(top_directory)
+    all_words.sort()
     for word in all_words:
         print('Downloading images for "{}"'.format(word))
         t = time.time()
@@ -23,9 +24,10 @@ def download_images(top_directory):
             filepath = '{}/{}.jpg'.format(download_folder, n)
             try:
                 urllib.urlretrieve(address, filepath)
-            except {IOError, UnicodeError}:
+            except (IOError, UnicodeError):
+                # Websites sometimes download slow, get stuck, just continue on.
                 continue
-            time.sleep(0.2)
+            time.sleep(0.5)
         print('Time taken to download all images in this folder: {}'.format(time.time() - t))
 
 
