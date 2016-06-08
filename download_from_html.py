@@ -1,3 +1,8 @@
+"""
+Downloads images from html files, use after download_htmls.py
+Usage: python download_from_htmls.py directory/containing/query/results
+"""
+
 import os
 import socket
 import sys
@@ -7,6 +12,15 @@ from bs4 import BeautifulSoup
 
 
 def download_images(top_directory):
+    """
+        Goes into every folder, looks for the .html file, and downloads images from each of the link in the file
+        into the same folder.
+        WARNING!!! Does not take into account robots.txt file, best if you check it with the site manually.
+        Args:
+            top_directory: directory that contains folders which contains htmls, generated
+            from download_from_html
+        Returns: None
+        """
     all_words = os.listdir(top_directory)
     all_words.sort()
     for word in all_words:
@@ -29,6 +43,7 @@ def download_images(top_directory):
                 continue
             time.sleep(0.5)
         print('Time taken to download all images in this folder: {}'.format(time.time() - t))
+    return
 
 
 if __name__ == "__main__":

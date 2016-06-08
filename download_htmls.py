@@ -1,5 +1,6 @@
 """
 Downloads search engine query results into html files.
+Usage: python download_htmls.py directory/to/download/into file/containing/words/to/query
 """
 import os
 import sys
